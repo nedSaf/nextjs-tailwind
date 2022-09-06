@@ -5,6 +5,7 @@ const navLinkStyle = `cursor-pointer inline-flex items-center px-1 pt-1 text-gra
 const iconButtonStyle = `flex bg-white p-2 rounded-full text-gray-400 hover:text-indigo-400 border-2 border-gray-500 hover:border-indigo-400`;
 
 import { useUser } from "@auth0/nextjs-auth0";
+import Image from "next/image";
 
 export default function Nav() {
   const { user, isLoading } = useUser();
@@ -41,17 +42,22 @@ export default function Nav() {
               </button>
             </Link>
             {!user ? (
-              <a
-                href="/api/auth/login"
-                className={`${iconButtonStyle} text-gray-800 border-gray-800 bg-orange-100`}
-              >
-                Login as provider
-              </a>
+              <Link href={`/api/auth/login`}>
+                <a
+                  className={`${iconButtonStyle} text-gray-800 border-gray-800 bg-orange-100`}
+                >
+                  Login as provider
+                </a>
+              </Link>
             ) : (
-              <>
-                <img
-                  className="rounded-full w-8 h-8 mx-2"
+              <div
+                className={`flex flex-row justify-between items-center space-x-2`}
+              >
+                <Image
+                  className="rounded-full w-8 h-8"
                   src={user.picture ?? ""}
+                  width={`32`}
+                  height={`32`}
                   alt=""
                 />
                 <span className="mx-2">{user.name}</span>
@@ -62,13 +68,14 @@ export default function Nav() {
                     Manage Shops
                   </a>
                 </Link>
-                <a
-                  href="/api/auth/logout"
-                  className={`${iconButtonStyle} text-gray-800 border-gray-800 bg-orange-100`}
-                >
-                  Logout
-                </a>
-              </>
+                <Link href={`/api/auth/logout`}>
+                  <a
+                    className={`${iconButtonStyle} text-gray-800 border-gray-800 bg-orange-100`}
+                  >
+                    Logout
+                  </a>
+                </Link>
+              </div>
             )}
           </div>
         </div>
