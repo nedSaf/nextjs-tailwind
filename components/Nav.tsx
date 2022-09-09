@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { useContext } from "react";
+import { Context } from "../context";
 
 const navLinkStyle = `cursor-pointer inline-flex items-center px-1 pt-1 text-gray-500 hover:text-indigo-400`;
 
@@ -9,6 +11,16 @@ import Image from "next/image";
 
 export default function Nav() {
   const { user, isLoading } = useUser();
+  // @ts-ignore
+  const { state } = useContext(Context as any);
+
+  const { cart } = state;
+  let itemCount = 0;
+
+  for (const [key, value] of Object.entries(cart)) {
+    itemCount = itemCount + cart[key].qty;
+  }
+
   return (
     <nav className="bg-white shadow">
       <div className="max-w-7xl mx-auto px-4">
@@ -38,7 +50,7 @@ export default function Nav() {
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                   />
                 </svg>
-                {` ${3} Item(s)`}
+                {` ${itemCount} Item(s)`}
               </button>
             </Link>
             {!user ? (
