@@ -29,11 +29,10 @@ export default function Cart() {
             return (
               <li key={key} className="flex py-6">
                 <div className="h-24 w-24 flex-shrink-0 rounded-md border border-gray-200">
-                  <Image
-                    width={280}
-                    height={280}
+                  <img
                     src={cart[key].image}
                     className="h-full w-full object-cover object-center"
+                    alt={cart[key].name}
                   />
                 </div>
 
